@@ -1,0 +1,24 @@
+<nav class="p-2 navbar navbar-expand-lg bg-dark">
+    <a class="navbar-brand text-white" routerLink="/">Navbar</a>
+    <button class="navbar-toggler text-light"  type="button" data-bs-toggle="collapse"
+     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class=" navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto ">
+        <li class="nav-item active "  *ngIf="isAuthenticated">
+          <a class="nav-link " routerLink="/">Home</a>
+        </li>
+        <li class="nav-item"  *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
+          </li>
+      
+        
+      </ul>
+     
+    </div>
+  </nav>

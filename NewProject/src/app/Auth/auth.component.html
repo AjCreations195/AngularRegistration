@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div class="alert alert-danger" *ngIf="error">
+    <p>{{error}}</p>
+  </div>
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <div class="form-outline mb-2" *ngIf="!isLoginMode">
+      <label class="form-label" for="userName">User Name</label>
+      <input type="text" id="userName" class="form-control" formControlName="username" />
+
+    </div>
+    <div class="form-outline mb-2">
+      <label class="form-label" for="email">Email address</label>
+      <input type="email" id="email" class="form-control" formControlName="email" />
+      <div><span class="help-block"
+          *ngIf="authForm.controls['email'].getError('required') &&authForm.controls['email'].touched">
+          Email is required
+        </span>
+        <span class="help-block"
+          *ngIf="authForm.controls['email'].getError('email') &&authForm.controls['email'].touched">
+          Must be valid email address
+        </span>
+      </div>
+    </div>
+    <div class="form-outline mb-2" *ngIf="!isLoginMode">
+      <label class="form-label" for="place">Place</label>
+      <input type="text" id="place" class="form-control" formControlName="place" />
+
+    </div>
+    <div class=" form-outline mb-3" *ngIf="!isLoginMode">
+      <label class="form-label" for="category">Category </label>
+      <select id="category" class="form-select" formControlName="category">
+        <option value="employee">Employee</option>
+        <option value="customer">Customer</option>
+      </select>
+    </div>
+    <div class=" form-group form-outline radio" *ngIf="!isLoginMode">
+      <h4>Gender</h4>
+      <label *ngFor="let gender of genders" class="mb-2">
+        <input type="radio" id="gender" formControlName="gender" [value]="gender" />
+        {{gender}}
+      </label>
+
+    </div>
+
+    <div class="form-outline mb-2">
+      <label class="form-label" for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="password" />
+      <div>
+        <span class="help-block"
+          *ngIf="authForm.controls['password'].getError('required') &&authForm.controls['password'].touched">
+          Password is required!
+        </span>
+        <span class="help-block"
+          *ngIf="authForm.controls['password'].getError('minlength') &&authForm.controls['password'].touched">
+          Must be atleast 6 characters
+        </span>
+      </div>
+    </div>
+  
+    <div class="form-outline" *ngIf="!isLoginMode">
+      <!-- <img [src]="url" height="100" alt=""><br> -->
+      <input type="file" formControlName="file" class="mt-1" id="file" (change)="onSelectFile($event)">
+      <div><image-cropper height="200"
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="4 / 3"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+       
+    ></image-cropper>
+    
+    <img [src]="croppedImage" /></div>
+    </div>
+  
+  
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!authForm.valid">
+      {{ isLoginMode ? "Login" : "Sign Up" }}</button>
+    | <button class="btn btn-secondary btn-block " type="button" (click)="onSwitchMode()">
+      Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+    </button>
+
+  </form>
+  
+ 
